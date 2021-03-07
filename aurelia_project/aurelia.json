@@ -23,7 +23,7 @@
   "platform": {
     "hmr": false,
     "open": false,
-    "port": 80,
+    "port": 8080,
     "output": "build"
   },
   "packageManager": "npm"
