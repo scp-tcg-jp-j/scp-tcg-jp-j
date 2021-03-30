@@ -25,6 +25,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - run: npm ci
+      - run: npm install aurelia-cli -g
       - run: au build --env prod
 
       - name: Deploy
