@@ -12,9 +12,8 @@ export function configure(aurelia: Aurelia) {
     .globalResources(
       [ // Registrer all components here
         PLATFORM.moduleName('@dunite/au-fluent-ui/elements/Pickers/DuCompactPeoplePicker'),
-        PLATFORM.moduleName('@dunite/au-fluent-ui/elements/BasicInputs/DuTextField'),
-        PLATFORM.moduleName('@dunite/au-fluent-ui/elements/BasicInputs/DuCheckBox'),
-        PLATFORM.moduleName('@dunite/au-fluent-ui/elements/BasicInputs/DuDropDown'),
+        PLATFORM.moduleName('@dunite/au-fluent-ui/elements/BasicInputs/DuCheckbox'),
+        PLATFORM.moduleName('@dunite/au-fluent-ui/elements/BasicInputs/DuDropdown'),
       ]);
 
   aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
