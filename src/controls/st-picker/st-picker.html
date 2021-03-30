@@ -1,0 +1,39 @@
+<template>
+  <style>
+    .picker {
+      margin: 0;
+    }
+    .ms-Persona-imageArea {
+      display: none;
+    }
+  </style>
+  <section class="picker">
+    <du-compact-people-picker
+    on-change.bind="onChange"
+    items.bind="selectedItems"
+    on-item-selected.bind="onItemSelected"
+    on-resolve-suggestions.bind="_onFilterChanged"
+    get-text-from-item.bind="_getTextFromItem"
+    input-props.bind="inputProps"
+    on-empty-input-focus.bind="_onEmptyInputFocus"
+    picker-suggestions-props.bind="suggestionProps"
+    on-validate-input.bind="_validateInput"
+    default-selected-items.one-time="selectedItems"
+    ></du-compact-people-picker>
+  </section>
+</template>
+<!--
+    on-change.bind → ここから呼ぶやつでJSとしてのリストに反映してやっている。
+    items.bind → コントロールに表示するJSのリスト。
+     → 初回表示のリスト。
+    on-item-seldefault-selected-items.one-timeected.bind → コントロールで選ばれた場合のリスト。
+    on-resolve-suggestions.bind → サジェスト候補が解決されるとき（多分）。このロジックで候補を決めてる
+    get-text-from-item.bind → JSのアイテムからテキストを取るときに使う。おそらく最上位候補のもの（入力補完で取っているやつの）
+    input-props.bind → onfocusなどのプロパティを入れてる？動かすだけなら不要かも
+    on-empty-input-focus.bind → 空のときの候補を決めてる<br>
+    class-name → 動かすだけなら不要かも？
+    picker-suggestion-props.bind → サジェストのタイトルなどのプロパティを決めてる
+    key → 不明
+    on-remove-suggestion.bind → サジェスト候補から要素が消されたとき。挙動に問題あり（不明）
+    on-validate-input.bind → バリデーション。返されるValidationStateの中身によって、JSのリストに追加される・追加されるが警告マークが出る・追加されないが決まる
+-->

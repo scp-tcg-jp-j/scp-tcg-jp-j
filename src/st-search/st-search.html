@@ -1,0 +1,170 @@
+<template>
+  <require from="../controls/st-picker/st-picker"></require>
+  <require from="./comma-format"></require>
+  <require from="./summary-format"></require>
+  <section class="font-default">
+    <h3>Wiki版カード検索</h3>
+    <hr>
+    <h4>カードタイプ</h4>
+    <div class="row">
+      <div class="col-md-4">
+        <h5>メインタイプ</h5>
+        <div class="form-group">
+          <st-picker selections.one-time="maintypePickerItems" selected-items.two-way="selectedMaintypes"></st-picker>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h5>サブタイプ</h5>
+        <div class="form-group">
+          <st-picker selections.one-time="subtypePickerItems" selected-items.two-way="selectedSubtypes"></st-picker>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h4>オブジェクトクラス</h4>
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <st-picker selections.one-time="ocPickerItems" selected-items.two-way="selectedObjectClasses"></st-picker>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-4 form-group" style="display: inline-flex;" show.bind="isShowingObjectColumn">
+        <div style="width: 50% !important;">
+          <h4>確保力</h4>
+          <div class="form-group" style="display: inline-flex;align-items: center;">
+            <label for="attack_min" style="margin-right: 5px;">最小</label>
+            <input type="number" value.bind="attackMin" class="form-control input-default" id="attack_min" style="width: 80px !important;">
+          </div>
+          <div class="form-group" style="display: inline-flex;align-items: center;">
+            <label for="attack_max" style="margin-right: 5px;">最大</label>
+            <input type="number" value.bind="attackMax" class="form-control input-default" id="attack_max" style="width: 80px !important;">
+          </div>
+          <du-checkbox checked.bind="attackSpecial" on-change.bind="onChangeAttackSpecial" box-side="end" label="無限大または無し"></du-checkbox>
+        </div>
+        <div style="width: 50% !important;">
+          <h4>コスト</h4>
+          <div class="form-group" style="display: inline-flex;align-items: center;">
+            <label for="cost_min" style="margin-right: 5px;">最小</label>
+            <input type="number" value.bind="costMin" class="form-control input-default" id="cost_min" style="width: 80px !important;">
+          </div>
+          <div class="form-group" style="display: inline-flex;align-items: center;">
+            <label for="cost_max" style="margin-right: 5px;">最大</label>
+            <input type="number" value.bind="costMax" class="form-control input-default" id="cost_max" style="width: 80px !important;">
+          </div>
+          <du-checkbox checked.bind="costSpecial" on-change.bind="onChangeCostSpecial" box-side="end" label="無限大または無し"></du-checkbox>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <h4>カード名</h4>
+        <input type="text" value.bind="cardName" class="input-text" keydown.trigger="catchEnter($event)">
+      </div>
+      <div class="col-md-4 form-group">
+        <h4>効果</h4>
+        <input type="text" value.bind="effect" class="input-text" keydown.trigger="catchEnter($event)">
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-4 form-group" show.bind="isShowingObjectColumn">
+        <h4>タグ</h4>
+        <input type="text" value.bind="tags" class="input-text" keydown.trigger="catchEnter($event)">
+      </div>
+      <div class="col-md-4 form-group">
+        <h4>永久収容</h4>
+        <du-checkbox checked.bind="banned" on-change.bind="onChangeBanned" box-side="end"></du-checkbox>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <du-checkbox checked.bind="showResultOption" on-change.bind="onChangeShowResultOption" box-side="end" label="表示設定"></du-checkbox>
+      </div>
+    </div>
+    <div class="row" show.bind="showResultOption">
+      <div class="col-md-4">
+        <div class="form-group">
+          <h5>表示項目</h5>
+          <st-picker selections.one-time="projectionPickerItems" selected-items.two-way="selectedProjections"></st-picker>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <h5>表示件数</h5>
+          <du-dropdown on-change.bind="onChangePager" selected-key.bind="selectedPagerOption" options.one-time="pagerOptions" default-selected-key="'10'"></du-dropdown> 
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px;">
+      <div class="col-md-4">
+        <form role = "form" submit.delegate = "submitSearch()">
+          <button type="submit" class="stjj-button large">検索</button>
+        </form>
+      </div>
+      <div class="col-md-4" show.bind="currentQuery">
+        <h5>表示順</h5>
+        <du-dropdown on-change.bind="onChangeSort" selected-key.bind="selectedSortOption" options.one-time="sortOptions" default-selected-key="'name_asc'"></du-dropdown>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 20px;" if.bind="currentQuery && count">
+      ${ currentQuery.page + 1 }/${ lastPage + 1 }ページ
+    </div>
+    <div class="row" repeat.for="card of cards" style="margin-top: 0px; margin-bottom: 0px; border-top: solid 1px !important; border-left: solid 1px !important; border-right: solid 1px !important; box-sizing: border-box;">
+      <div class="${ 
+        card.maintypes[0] == 'オブジェクト' ? 'back-object' : 
+        card.maintypes[0] == '人事' ? 'back-personnel' :
+        card.maintypes[0] == 'Tale' ? 'back-tale' :
+        card.maintypes[0] == 'Incident' ? 'back-incident' :
+        card.maintypes[0] == 'Canon' ? 'back-canon' :
+        card.maintypes[0] == 'Hub' ? 'back-hub' :
+                                    'back-contract'
+      }">
+        <h3><a click.trigger="openFandom(card)">${ card.name }</a></h3>
+        <span if.bind="isShowingMaintypes">メインタイプ:${ card.maintypes | commaFormat }/</span>
+        <span if.bind="isShowingSubtypes">サブタイプ:${ card.subtypes | commaFormat }/</span>
+        <span if.bind="isShowingOc && card.oc">OC:${ card.oc }/</span>
+        <!-- todo: 特殊の判定をちゃんとやる（関数生やすとか） -->
+        <span if.bind="isShowingAttack && card.attack">確保力:${ card.attack }/</span>
+        <span if.bind="isShowingAttack && card.oc && !card.attack">確保力:特殊/</span>
+        <span if.bind="isShowingCost && card.cost">コスト:${ card.cost }/</span>
+        <span if.bind="isShowingCost && card.oc && !card.cost">コスト:特殊/</span>
+        <br>
+        <br>
+        <div if.bind="isShowingEffect && card.effect">効果:${ card.effect }</div>
+        <br>
+        <span if.bind="isShowingTags && (card.tags.length > 10) && !card.showAll">タグ:${ card.tags | summaryFormat }<a click.trigger="card.showAll=true">[残りを表示する]</a></span>
+        <span if.bind="isShowingTags && (card.tags.length > 10) && card.showAll">タグ:${ card.tags | commaFormat }</span>
+        <span if.bind="isShowingTags && card.tags.length && card.tags.length <= 10">タグ:${ card.tags | commaFormat }</span>
+      </div>
+    </div>
+    <div class="row" if.bind="currentQuery && count" style="margin-top: 20px;">
+      <div class="col-md-1">
+        <form role = "form" submit.delegate = "submitPageFirst()">
+          <button type="submit" class="stjj-button medium" disabled.bind="isFirstPage">最初</button>
+        </form>
+      </div>
+      <div class="col-md-1">
+        <form role = "form" submit.delegate = "submitPagePrevious()">
+          <button type="submit" class="stjj-button medium" disabled.bind="isFirstPage">前</button>
+        </form>
+      </div>
+      <div class="col-md-1">
+        <form role = "form" submit.delegate = "submitPageNext()">
+          <button type="submit" class="stjj-button medium" disabled.bind="isLastPage">次</button>
+        </form>
+      </div>
+      <div class="col-md-1">
+        <form role = "form" submit.delegate = "submitPageLast()">
+          <button type="submit" class="stjj-button medium" disabled.bind="isLastPage">最後</button>
+        </form>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 20px; margin-bottom: 50px;" if.bind="currentQuery && !count">
+      (カードが見つかりませんでした。検索条件を変更して今一度お試しください)
+    </div>
+    <br><br><br><br><br><br><br><br>
+  </section>
+</template>

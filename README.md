@@ -1,0 +1,2 @@
+STJJ.AICのフロントエンドです。  
+GitHub Pagesにデプロイされます。
