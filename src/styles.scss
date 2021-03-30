@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: #dcd6d9;
 }
 
 .splash {
@@ -172,4 +173,166 @@ div.au-stagger {
   100% {
     opacity: 1;
   }
+}
+
+// 生のinput系をau-fluent-uiに合わせたデザインにする
+.input-default {
+  border: solid 1px rgb(96, 94, 92) !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  background-color: #eaedf7 !important;
+}
+
+.input-default:focus {
+  pointer-events: none;
+  border: solid 2px rgb(0, 120, 212) !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+}
+
+.input-text {
+  border: solid 1px rgb(96, 94, 92) !important;
+  border-radius: 2px !important;
+  font-size: 14px;
+  font-weight: 400;
+  width: 100% !important;
+  height: 32px !important;
+  padding: 0px 8px !important;
+  margin: 0px !important;
+  box-sizing: border-box !important;
+}
+
+.input-text:focus {
+  border: solid 2px rgb(0, 120, 212) !important;
+  border-radius: 2px !important;
+  outline: none !important;
+}
+
+// 全体で使うフォント。.ms-Checkbox-textはau-fluent-uiのチェックボックス
+.font-default, .ms-Checkbox-text {
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+label {
+  font-weight: normal !important;
+}
+
+.ms-BasePicker-text {
+  background-color: lighten( #dcd6d9, 10%) !important; // #f3f2f3
+}
+
+.ms-Checkbox-checkbox {
+  background-color: lighten( #dcd6d9, 10%) !important; // #f3f2f3
+}
+
+
+// チェックボックスにホバーしたときにチェックっぽく見えるのを抑止
+.ms-Checkbox:not(.is-checked) .ms-Checkbox-checkmark {
+  color: lighten( #dcd6d9, 10%) !important; // #f3f2f3
+}
+.ms-Checkbox.is-checked .ms-Checkbox-checkmark {
+  color: black !important;
+}
+
+// ボタン
+.stjj-button {
+  color: white !important;
+  background-color: #101010 !important;
+  border-style: none;
+  outline: none;
+
+  &:hover {
+    background-color: #303030 !important;
+  }
+  &:active {
+    background-color: #505050 !important;
+    border-color: #505050 !important;
+  }
+
+  &.large {
+    width: 200px !important;
+    height: 50px !important;
+    font-size: x-large;
+  }
+
+  &.medium {
+    width: 100px !important;
+    height: 25px !important;
+    font-size: medium;
+  }
+
+  &:disabled {
+    background-color: #6c6669 !important;
+  }
+}
+
+.back-object {
+  h3 {
+    margin: 0;
+    a {
+      color: #f3f2f3;
+    }
+  }
+  color: #f3f2f3;
+  background-color: #006400;
+}
+.back-personnel {
+  h3 {
+    margin: 0;
+    a {
+      color: #f3f2f3;    
+    }
+  }
+  color: #f3f2f3;
+  background-color: #8d4513;
+}
+.back-tale {
+  h3 {
+    margin: 0;
+    a {
+      color: #f3f2f3;    
+    }
+  }
+  color: #f3f2f3;
+  background-color: #5f9ea0;
+}
+.back-incident {
+  h3 {
+    margin: 0;
+    a {
+      color: #f3f2f3;    
+    }
+  }
+  color: #f3f2f3;
+  background-color: #800080;
+}
+.back-canon {
+  h3 {
+    margin: 0;
+    a {
+      color: #f3f2f3;    
+    }
+  }
+  color: #f3f2f3;
+  background-color: #4682b4;
+}
+.back-hub {
+  h3 {
+    margin: 0;
+    a {
+      color: #3f2f2f;
+    }
+  }
+  color: #3f2f2f;
+  background-color: #C6DFB8;
+}
+.back-contract {
+  h3 {
+    margin: 0;
+    a {
+      color: #f3f2f3;    
+    }
+  }
+  color: #f3f2f3;
+  background-color: #000000;
 }

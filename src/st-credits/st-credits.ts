@@ -1,5 +1,5 @@
 import {computedFrom} from 'aurelia-framework';
 
-export class Credits {
+export class StCredits {
 
 }

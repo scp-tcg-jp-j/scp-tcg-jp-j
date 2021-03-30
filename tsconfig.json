@@ -14,7 +14,8 @@
     ],
     "moduleResolution": "node",
     "allowJs": true,
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "strict": true
   },
   "include": [
     "./src/**/*.ts",

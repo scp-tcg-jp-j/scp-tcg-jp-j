@@ -1,4 +1,5 @@
 export default {
   debug: false,
-  testing: false
+  testing: false,
+  BASE_URL: "https://api.scptcgjpj.tk",
 };
