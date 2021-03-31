@@ -22,13 +22,13 @@
       </div>
     </div>
     <hr>
-    <h4>オブジェクトクラス</h4>
     <div class="row">
-      <div class="col-md-4 form-group">
+      <div class="col-md-4 form-group" show.bind="isShowingObjectColumn">
+        <h4>オブジェクトクラス</h4>
         <st-picker selections.one-time="ocPickerItems" selected-items.two-way="selectedObjectClasses"></st-picker>
       </div>
     </div>
-    <hr>
+    <hr show.bind="isShowingObjectColumn">
     <div class="row">
       <div class="col-md-4 form-group" style="display: inline-flex;" show.bind="isShowingObjectColumn">
         <div style="width: 50% !important;">
@@ -57,7 +57,7 @@
         </div>
       </div>
     </div>
-    <hr>
+    <hr show.bind="isShowingObjectColumn">
     <div class="row">
       <div class="col-md-4 form-group">
         <h4>カード名</h4>
@@ -99,7 +99,7 @@
         </div>
       </div>
     </div>
-    <div class="row" style="margin-bottom: 20px;">
+    <div class="row">
       <div class="col-md-4">
         <form role = "form" submit.delegate = "submitSearch()">
           <button type="submit" class="stjj-button large">検索</button>
@@ -110,12 +110,24 @@
         <du-dropdown on-change.bind="onChangeSort" selected-key.bind="selectedSortOption" options.one-time="sortOptions" default-selected-key="'name_asc'"></du-dropdown>
       </div>
     </div>
+    <div class="row" style="margin-bottom: 20px;">
+      ※FANDOMのデータの反映は毎日24:00に行われます。
+    </div>
     <div class="row" style="margin-top: 20px;" if.bind="currentQuery && count">
       ${ currentQuery.page + 1 }/${ lastPage + 1 }ページ
     </div>
     <div class="row" repeat.for="card of cards" style="margin-top: 0px; margin-bottom: 0px; border-top: solid 1px !important; border-left: solid 1px !important; border-right: solid 1px !important; box-sizing: border-box;">
       <div class="${ 
-        card.maintypes[0] == 'オブジェクト' ? 'back-object' : 
+        card.maintypes[0] == 'オブジェクト' ? 'back-object ' + (
+          card.oc == 'Safe' ? 'safe' :
+          card.oc == 'Euclid' ? 'euclid' :
+          card.oc == 'Keter' ? 'keter' :
+          card.oc == 'Thaumiel' ? 'thaumiel' :
+          card.oc == 'Neutralized' ? 'neutralized' :
+          card.oc == 'Unclassed' ? 'unclassed' :
+          card.oc == 'Anomalous' ? 'anomalous' :
+                                      'explained')
+        : 
         card.maintypes[0] == '人事' ? 'back-personnel' :
         card.maintypes[0] == 'Tale' ? 'back-tale' :
         card.maintypes[0] == 'Incident' ? 'back-incident' :
@@ -141,6 +153,7 @@
         <span if.bind="isShowingTags && card.tags.length && card.tags.length <= 10">タグ:${ card.tags | commaFormat }</span>
       </div>
     </div>
+    <div class="row" if.bind="currentQuery && count" style="border-top: solid 1px;"></div>
     <div class="row" if.bind="currentQuery && count" style="margin-top: 20px;">
       <div class="col-md-1">
         <form role = "form" submit.delegate = "submitPageFirst()">
