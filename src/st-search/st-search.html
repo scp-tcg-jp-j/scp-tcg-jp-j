@@ -140,10 +140,10 @@
         <span if.bind="isShowingSubtypes">サブタイプ:${ card.subtypes | commaFormat }/</span>
         <span if.bind="isShowingOc && card.oc">OC:${ card.oc }/</span>
         <!-- todo: 特殊の判定をちゃんとやる（関数生やすとか） -->
-        <span if.bind="isShowingAttack && card.attack">確保力:${ card.attack }/</span>
-        <span if.bind="isShowingAttack && card.oc && !card.attack">確保力:特殊/</span>
-        <span if.bind="isShowingCost && card.cost">コスト:${ card.cost }/</span>
-        <span if.bind="isShowingCost && card.oc && !card.cost">コスト:特殊/</span>
+        <span if.bind="isShowingAttack && (card.attack || (card.attack == 0))">確保力:${ card.attack }/</span>
+        <span if.bind="isShowingAttack && card.oc && (card.attack == null)">確保力:特殊/</span>
+        <span if.bind="isShowingCost && (card.cost || (card.cost == 0))">コスト:${ card.cost }/</span>
+        <span if.bind="isShowingCost && card.oc && (card.cost == null)">コスト:特殊/</span>
         <br>
         <br>
         <div if.bind="isShowingEffect && card.effect" style="white-space: pre-line;">効果:${ card.effect | brFormat }</div>
