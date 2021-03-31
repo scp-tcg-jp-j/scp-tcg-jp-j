@@ -2,6 +2,7 @@
   <require from="../controls/st-picker/st-picker"></require>
   <require from="./comma-format"></require>
   <require from="./summary-format"></require>
+  <require from="./br-format"></require>
   <section class="font-default">
     <h3>Wiki版カード検索</h3>
     <hr>
@@ -133,7 +134,7 @@
         <span if.bind="isShowingCost && card.oc && !card.cost">コスト:特殊/</span>
         <br>
         <br>
-        <div if.bind="isShowingEffect && card.effect">効果:${ card.effect }</div>
+        <div if.bind="isShowingEffect && card.effect" style="white-space: pre-line;">効果:${ card.effect | brFormat }</div>
         <br>
         <span if.bind="isShowingTags && (card.tags.length > 10) && !card.showAll">タグ:${ card.tags | summaryFormat }<a click.trigger="card.showAll=true">[残りを表示する]</a></span>
         <span if.bind="isShowingTags && (card.tags.length > 10) && card.showAll">タグ:${ card.tags | commaFormat }</span>
