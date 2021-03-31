@@ -270,69 +270,85 @@ label {
   h3 {
     margin: 0;
     a {
-      color: #f3f2f3;
+      color: black;
     }
   }
-  color: #f3f2f3;
-  background-color: #006400;
+  &.safe {
+    background-color: #D6FFDB;
+  }
+  &.euclid {
+    background-color: #FFFFB2;
+  }
+  &.keter {
+    background-color: #FFE4E1;
+  }
+  &.thaumiel {
+    background-color: #F0F8FF;
+  }
+  &.neutralized {
+    background-color: #E5E4E2;
+  }
+  &.unclassed {
+    background-color: #EEEEEE;
+  }
+  &.anomalous {
+    background-color: #B2FFE2;
+  }
+  &.explained {
+    background-color: #FFF0F5;
+  }
 }
 .back-personnel {
   h3 {
     margin: 0;
     a {
-      color: #f3f2f3;    
+      color: black;
     }
   }
-  color: #f3f2f3;
-  background-color: #8d4513;
+  background-color: #FFDEAD;
 }
 .back-tale {
   h3 {
     margin: 0;
     a {
-      color: #f3f2f3;    
+      color: black;
     }
   }
-  color: #f3f2f3;
-  background-color: #5f9ea0;
+  background-color: #D0FFFF;
 }
 .back-incident {
   h3 {
     margin: 0;
     a {
-      color: #f3f2f3;    
+      color: black;
     }
   }
-  color: #f3f2f3;
-  background-color: #800080;
+  background-color: #FAD6FA;
 }
 .back-canon {
   h3 {
     margin: 0;
     a {
-      color: #f3f2f3;    
+      color: black;
     }
   }
-  color: #f3f2f3;
-  background-color: #4682b4;
+  background-color: lighten(#4682b4, 20%);
 }
 .back-hub {
   h3 {
     margin: 0;
     a {
-      color: #3f2f2f;
+      color: black;
     }
   }
-  color: #3f2f2f;
   background-color: #C6DFB8;
 }
 .back-contract {
   h3 {
     margin: 0;
     a {
-      color: #f3f2f3;    
+      color: black;
     }
   }
-  color: #f3f2f3;
-  background-color: #000000;
+  background-color: lighten(#000000, 60%)
 }
