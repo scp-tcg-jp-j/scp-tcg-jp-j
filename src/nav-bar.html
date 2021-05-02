@@ -1,4 +1,4 @@
-<template bindable="router">
+<template bindable="router, authenticationService, logout">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-navbar-collapse-1">
@@ -16,14 +16,32 @@
   
       <div class="collapse navbar-collapse" id="navigation-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+          <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}" 
+            if.bind="
+            (row.href != '#/login') && 
+            !(row.href == '#/user-manager' && (authenticationService.user == null || authenticationService.user.role != 'administrator')) && 
+            !(row.href == '#/account-info' && (authenticationService.user == null)) && 
+            !(row.href == '#/email-change') && 
+            !(row.href == '#/username-change') && 
+            !(row.href == '#/password-change') && 
+            !(row.href == '#/account-delete') && 
+            !(row.href == '#/signup') && 
+            !(row.href == '#/signup-password') && 
+            !(row.href == '#/password-reset') && 
+            !(row.href == '#/password-reset-new') && 
+            !(row.href == '#/email-change') && 
+            !(row.href == '#/email-change-new')
+          ">
             <a data-toggle="collapse" data-target="#navigation-navbar-collapse-1.in" href.bind="row.href">${row.title}</a>
           </li>
         </ul>
   
-        <ul class="nav navbar-nav navbar-right">
-          <li class="loader" if.bind="router.isNavigating">
-            <i class="fa fa-spinner fa-spin fa-2x"></i>
+        <ul class="nav navbar-nav navbar-right" style="margin-right: 20px;">
+          <li if.bind="!authenticationService.hasLogin">
+            <a data-toggle="collapse" data-target="#navigation-navbar-collapse-1.in" href.bind="'#/login'">ログイン/アカウント作成</a>
+          </li>
+          <li if.bind="authenticationService.hasLogin">
+            <a data-toggle="collapse" data-target="#navigation-navbar-collapse-1.in" click.delegate="logout()">ログアウト</a>
           </li>
         </ul>
       </div>

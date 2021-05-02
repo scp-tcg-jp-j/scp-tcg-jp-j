@@ -261,6 +261,11 @@ label {
     font-size: medium;
   }
 
+  &.wide {
+    width: 200px !important;
+    font-size: medium;
+  }
+
   &:disabled {
     background-color: #6c6669 !important;
   }

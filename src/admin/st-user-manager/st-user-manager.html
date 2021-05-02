@@ -1,0 +1,94 @@
+<template>
+  <section class="font-default">
+    <h3>管理者用画面</h3>
+  <style>
+    .column-grid {
+      padding-top: 5px !important;
+      padding-bottom: 5px !important;
+      border-top: solid 1px !important;
+      border-left: solid 1px !important;
+      text-align: center;
+      height: 35px !important;
+    }
+    .column-grid-right {
+      border-right: solid 1px !important;
+    }
+    .column-grid-bottom {
+      border-bottom: solid 1px !important;
+    }
+  </style>
+  <div class="row">
+    <div class="col-md-2 column-grid">
+      ユーザー名
+    </div>
+    <div class="col-md-2 column-grid">
+      メールアドレス
+    </div>
+    <div class="col-md-1 column-grid">
+      権限
+    </div>
+    <div class="col-md-1 column-grid column-grid-right">
+      BAN
+    </div>
+  </div>
+  <div class="row" repeat.for="user of users" show.bind="currentPageItemsId.includes(user._id)">
+    <div class="col-md-2 column-grid">
+      ${ user.username }
+    </div>
+    <div class="col-md-2 column-grid">
+      ${ user.email }
+    </div>
+    <div class="col-md-1 column-grid">
+    <select value.bind="user.role" change.delegate="roleEdit(user.role, user._id)"
+      disabled.bind="authenticationService.user._id == user._id"
+    >
+      <option repeat.for="option of roleOptions"
+              model.bind="option.key">
+              ${option.key}
+      </option>
+    </select>
+    </div>
+    <div class="col-md-1 column-grid column-grid-right">
+      <button type="button" class="stjj-button medium" 
+        click.delegate="user.banned ? banEdit(false, user._id) : banEdit(true, user._id)"
+        disabled.bind="authenticationService.user._id == user._id"
+      >
+      ${ user.banned ? '解除する' : 'BANする'}
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6" style="border-top: solid 1px !important">
+      <!-- 一番下の線 -->
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md-1">
+      <button type="button" class="stjj-button medium" click.delegate="goFirst()" disabled.bind="isFirstPage">最初</button>
+    </div>
+    <div class="col-md-1">
+      <button type="button" class="stjj-button medium" click.delegate="goBack()" disabled.bind="isFirstPage">前</button>
+    </div>
+    <div class="col-md-1">
+      <button type="button" class="stjj-button medium" click.delegate="goNext()" disabled.bind="isLastPage">次</button>
+    </div>
+    <div class="col-md-1">
+      <button type="button" class="stjj-button medium" click.delegate="goLast()" disabled.bind="isLastPage">最後</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div  style="text-align: center;">
+        <form role = "form" submit.delegate = "save()">
+          <button type="submit" class="stjj-button medium">保存</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+</section>
+</template>

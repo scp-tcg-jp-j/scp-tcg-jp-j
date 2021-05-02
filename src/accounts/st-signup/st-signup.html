@@ -1,0 +1,32 @@
+<template>
+  <section class="font-default" style="height: 100vh;margin-top: 33vh;">
+    <style>
+      .login-control {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px !important;
+      }
+    </style>
+    <div class="login-control">
+      <h3>STJJ.AIC アカウント作成</h3>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="login-control">
+          <input type="text" value.bind="email" class="input-text form-group" style="width: 250px !important;" placeholder="メールアドレス">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="login-control">
+          <input type="text" value.bind="username" class="input-text form-group" style="width: 250px !important;" placeholder="ユーザー名">
+        </div>
+      </div>
+    </div>
+    <div class="row login-control">
+      <button type="button" class="stjj-button wide" click.delegate="submitSignup()">確認用メールの送信</button>
+    </div>
+  </section>
+</template>

@@ -1,0 +1,41 @@
+<template>
+  <section class="font-default" style="height: 100vh;margin-top: 33vh;">
+    <style>
+      .login-control {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px !important;
+      }
+    </style>
+    <div class="login-control">
+      <h3>STJJ.AIC ログイン</h3>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="login-control">
+          <input type="text" value.bind="usernameOrEmail" class="input-text form-group" style="width: 250px !important;" placeholder="ユーザー名またはメールアドレス">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="login-control">
+          <input type="password" value.bind="password" class="input-text form-group" style="width: 250px !important;" placeholder="パスワード">
+        </div>
+      </div>
+    </div>
+    <div class="row login-control" show.bind="hasFailed">
+      <span>ユーザー名、メールアドレスまたはパスワードが違います</span>
+    </div>
+    <div class="row login-control">
+      <button type="button" class="stjj-button large" click.delegate="submitLogin()">ログイン</button>
+    </div>
+    <div class="row login-control" style="margin-top: 50px;">
+      <button type="button" class="stjj-button large" click.delegate="goSignup()">アカウント作成</button>
+    </div>
+    <div class="row login-control" style="margin-top: 50px;">
+      <a data-toggle="collapse" data-target="#navigation-navbar-collapse-1.in" href.bind="'#/password-reset'">パスワードリセット</a>
+    </div>
+  </section>
+</template>

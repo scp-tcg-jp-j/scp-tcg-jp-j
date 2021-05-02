@@ -1,0 +1,25 @@
+<template>
+  <section class="font-default" style="height: 100vh;margin-top: 33vh;">
+    <style>
+      .login-control {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px !important;
+      }
+    </style>
+    <div class="login-control">
+      <h3>STJJ.AIC アカウント削除</h3>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="login-control">
+          <input type="password" value.bind="password" class="input-text form-group" style="width: 250px !important;" placeholder="パスワード">
+        </div>
+      </div>
+    </div>
+    <div class="row login-control">
+      <button type="button" class="stjj-button wide" click.delegate="submitAccountDelete()">アカウント削除</button>
+    </div>
+  </section>
+</template>

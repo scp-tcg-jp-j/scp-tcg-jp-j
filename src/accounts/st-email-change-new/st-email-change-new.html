@@ -1,0 +1,20 @@
+<template>
+  <require from="../st-account-side-bar/st-account-side-bar"></require>
+  <section class="font-default" style="display: flex; flex-direction: row;margin-top: 20px;">
+    <st-account-side-bar></st-account-side-bar>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5"><input type="text" value.bind="newUsername" class="input-text" placeholder="新しいユーザー名"></div>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+          <form role = "form" submit.delegate = "save()">
+            <button type="submit" class="stjj-button medium">保存</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
