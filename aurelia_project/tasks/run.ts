@@ -10,7 +10,7 @@ import {CLIOptions, reportWebpackReadiness} from 'aurelia-cli';
 function runWebpack(done) {
   // https://webpack.github.io/docs/webpack-dev-server.html
   let opts = {
-    host: 'localhost',
+    host: 'localhost.scptcgjpj.tk',
     publicPath: config.output.publicPath,
     filename: config.output.filename,
     hot: project.platform.hmr || CLIOptions.hasFlag('hmr'),
