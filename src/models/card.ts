@@ -21,6 +21,6 @@ export interface Card {
     effect?: string
     tags?: [string, ...string[]];
     banned?: true
-    latest_revid: number
+    lastrevid: number
     page_title?: string
 }
