@@ -10,16 +10,17 @@ import {CLIOptions, reportWebpackReadiness} from 'aurelia-cli';
 function runWebpack(done) {
   // https://webpack.github.io/docs/webpack-dev-server.html
   let opts = {
-    host: 'localhost.scptcgjpj.tk',
-    publicPath: config.output.publicPath,
-    filename: config.output.filename,
+    host: 'localhost.scptcgjpj.ga',
+    // publicPath: config.output.publicPath,
+    // filename: config.output.filename,
     hot: project.platform.hmr || CLIOptions.hasFlag('hmr'),
     port: CLIOptions.getFlagValue('port') || project.platform.port,
-    contentBase: config.output.path,
+    // contentBase: config.output.path,
     historyApiFallback: true,
     open: project.platform.open || CLIOptions.hasFlag('open'),
-    stats: {
-      colors: require('supports-color')
+    static: {
+      directory: config.output.path,
+      publicPath: config.output.publicPath,
     },
     https: config.devServer.https
   } as any;

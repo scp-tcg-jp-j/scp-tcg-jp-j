@@ -47,7 +47,7 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
     runtimeChunk: true,  // separates the runtime chunk, required for long term cacheability
     // moduleIds is the replacement for HashedModuleIdsPlugin and NamedModulesPlugin deprecated in https://github.com/webpack/webpack/releases/tag/v4.16.0
     // changes module id's to use hashes be based on the relative path of the module, required for long term cacheability
-    moduleIds: 'hashed',
+    moduleIds: 'deterministic',
     // Use splitChunks to breakdown the App/Aurelia bundle down into smaller chunks
     // https://webpack.js.org/plugins/split-chunks-plugin/
     splitChunks: {
@@ -145,14 +145,14 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
     historyApiFallback: true,
     https: true,
   },
-  devtool: production ? 'nosources-source-map' : 'cheap-module-eval-source-map',
+  devtool: production ? 'nosources-source-map' : 'eval-cheap-module-source-map',
   module: {
     rules: [
       // CSS required in JS/TS files should use the style-loader that auto-injects it into the website
       // only when the issuer is a .js/.ts file, so the loaders are not applied inside html templates
       {
         test: /\.css$/i,
-        issuer: [{ not: [{ test: /\.html$/i }] }],
+        issuer: [{ not: [/\.html$/i] }],
         use: extractCss ? [{
           loader: MiniCssExtractPlugin.loader
         },
@@ -161,7 +161,7 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
       },
       {
         test: /\.css$/i,
-        issuer: [{ test: /\.html$/i }],
+        issuer: [/\.html$/i],
         // CSS required in templates cannot be extracted safely
         // because Aurelia would try to require it again in runtime
         use: cssRules
@@ -179,15 +179,25 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
       { test: /\.html$/i, loader: 'html-loader' },
       { test: /\.ts$/, loader: "ts-loader" },
       // embed small images and fonts as Data Urls and larger ones as files:
-      { test: /\.(png|gif|jpg|cur)$/i, loader: 'url-loader', options: { limit: 8192 } },
-      { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff2' } },
-      { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff' } },
+      // { test: /\.(png|gif|jpg|cur)$/i, loader: 'url-loader', options: { limit: 8192 } },
+      // { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff2' } },
+      // { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff' } },
+      { test: /\.(png|gif|jpg|cur)$/i, type: 'asset' },
+      { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/i, type: 'asset', mimetype: 'application/font-woff2' },
+      { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/i, type: 'asset', mimetype: 'application/font-woff' },
       // load these fonts normally, as files:
-      { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'file-loader' },
+      // { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'file-loader' },
+      { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, type: 'asset/resource' },
       ...when(coverage, {
-        test: /\.[jt]s$/i, loader: 'istanbul-instrumenter-loader',
+        test: /\.[jt]s$/i, 
         include: srcDir, exclude: [/\.(spec|test)\.[jt]s$/i],
-        enforce: 'post', options: { esModules: true },
+        enforce: 'post', 
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['babel-plugin-istanbul']
+          }
+        }
       })
     ]
   },
@@ -225,8 +235,15 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
       filename: production ? 'css/[name].[contenthash].bundle.css' : 'css/[name].[hash].bundle.css',
       chunkFilename: production ? 'css/[name].[contenthash].chunk.css' : 'css/[name].[hash].chunk.css'
     })),
-    ...when(production || server, new CopyWebpackPlugin([
-      { from: 'static', to: outDir, ignore: ['.*'] }])), // ignore dot (hidden) files
+    ...when(production || server, new CopyWebpackPlugin({
+      patterns: [{
+        from: 'static',
+        to: outDir,
+        globOptions: {
+          ignore: ['.*'],
+        }
+      }]
+    })), // ignore dot (hidden) files
     ...when(analyze, new BundleAnalyzerPlugin())
   ]
 });
