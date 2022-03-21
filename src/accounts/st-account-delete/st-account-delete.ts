@@ -1,15 +1,17 @@
 import environment from 'environment';
 import { authenticationService } from './../../models/authentication-service';
 
+// アカウント削除確認画面
 export class StAccountDelete {
-  password: string = ""
+  password: string = "";
 
   created() {
+    // アクセス時にログアウト状態の場合は検索画面に飛ばす。
     authenticationService.nowLogin().then(alive => {
       if (!alive) {
-        location.href = environment.BASE_URL_FRONT + "/#/search_cards"
+        location.href = environment.BASE_URL_FRONT + "/#/search_cards";
       }
-    })
+    });
   }
 
   submitAccountDelete() {

@@ -1,18 +1,18 @@
 import environment from 'environment';
 import { authenticationService } from './../../models/authentication-service';
 export class StUsernameChange {
-  newUsername: string = ""
+  newUsername: string = "";
 
   created() {
     authenticationService.nowLogin().then(alive => {
       if (!alive) {
         location.href = environment.BASE_URL_FRONT + "/#/login"
       }
-    })
+    });
   }
 
   save() {
-    const body = JSON.stringify( { username: this.newUsername } )
+    const body = JSON.stringify( { username: this.newUsername } );
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ export class StUsernameChange {
       } else {
         alert("ユーザー名の更新に失敗しました。必要に応じてもう一度操作してください");
       }
-      location.reload()
+      location.reload();
     });
   }
 }

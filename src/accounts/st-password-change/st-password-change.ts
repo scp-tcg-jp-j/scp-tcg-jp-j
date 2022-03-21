@@ -1,19 +1,19 @@
 import environment from 'environment';
 import { authenticationService } from './../../models/authentication-service';
 export class StPasswordChange {
-  currentPassword: string = ""
-  newPassword: string = ""
+  currentPassword: string = "";
+  newPassword: string = "";
 
   created() {
     authenticationService.nowLogin().then(alive => {
       if (!alive) {
-        location.href = environment.BASE_URL_FRONT + "/#/login"
+        location.href = environment.BASE_URL_FRONT + "/#/login";
       }
-    })
+    });
   }
 
   save() {
-    const body = JSON.stringify( { currentPassword: this.currentPassword, newPassword: this.newPassword } )
+    const body = JSON.stringify( { currentPassword: this.currentPassword, newPassword: this.newPassword } );
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -26,7 +26,7 @@ export class StPasswordChange {
       } else {
         alert("パスワードの更新に失敗しました。必要に応じてもう一度操作してください");
       }
-      location.reload()
+      location.reload();
     });
   }
 }

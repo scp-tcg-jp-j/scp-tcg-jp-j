@@ -1,18 +1,18 @@
 import environment from 'environment';
 import { authenticationService } from './../../models/authentication-service';
 export class StEmailChange {
-  newEmail: string = ""
+  newEmail: string = "";
 
   created() {
     authenticationService.nowLogin().then(alive => {
       if (!alive) {
-        location.href = environment.BASE_URL_FRONT + "/#/login"
+        location.href = environment.BASE_URL_FRONT + "/#/login";
       }
-    })
+    });
   }
 
   save() {
-    const body = JSON.stringify( { email: this.newEmail } )
+    const body = JSON.stringify( { email: this.newEmail } );
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ export class StEmailChange {
       } else {
         alert("メールアドレスの更新に失敗しました。必要に応じてもう一度操作してください");
       }
-      location.reload()
+      location.reload();
     });
   }
 }

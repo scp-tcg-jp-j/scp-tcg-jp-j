@@ -5,9 +5,9 @@ export class StEmailChangeNew {
   created() {
     authenticationService.nowLogin().then(alive => {
       if (!alive) {
-        location.href = environment.BASE_URL_FRONT + "/#/login"
+        location.href = environment.BASE_URL_FRONT + "/#/login";
       }
-    })
+    });
   }
 
   activate(params: any) {
