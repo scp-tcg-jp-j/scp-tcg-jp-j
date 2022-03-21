@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -143,7 +144,10 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
     contentBase: outDir,
     // serve index.html for all 404 (required for push-state)
     historyApiFallback: true,
-    https: true,
+    https: {
+      cert: fs.readFileSync('../frontcert/certs/cert.pem'),
+      key: fs.readFileSync('../frontcert/private/key.pem')
+    }
   },
   devtool: production ? 'nosources-source-map' : 'eval-cheap-module-source-map',
   module: {
