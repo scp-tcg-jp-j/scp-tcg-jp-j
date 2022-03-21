@@ -29,9 +29,7 @@ export class StSignup {
         alert("確認用のメールを送信しました。メールボックスをご確認ください。\n※このウィンドウは閉じても問題ありません");
       } else {
         response.json().then(json => {
-          response.json().then(json => {
-            this.errors = (json.errors as { msg: string }[]).map(item => item.msg);
-          });
+          this.errors = (json.errors as { msg: string }[]).map(item => item.msg);
         });
       }
     });
