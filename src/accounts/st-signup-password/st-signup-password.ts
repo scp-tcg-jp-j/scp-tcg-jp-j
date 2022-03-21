@@ -4,6 +4,7 @@ import { authenticationService } from './../../models/authentication-service';
 export class StSignupPassword {
   password: string = ""
   token: string = ""
+  errors: string[] = [];
 
   created() {
     authenticationService.nowLogin().then(alive => {
@@ -18,7 +19,7 @@ export class StSignupPassword {
   }
 
   submitSignup() {
-    const body = JSON.stringify( { password: this.password, token: this.token } )
+    const body = JSON.stringify( { password: this.password, token: this.token } );
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -30,7 +31,9 @@ export class StSignupPassword {
         alert("アカウントを作成しました。");
         location.href = environment.BASE_URL_FRONT
       } else {
-        alert("登録に失敗しました。必要に応じてもう一度操作してください");
+        response.json().then(json => {
+          this.errors = (json.errors as { msg: string }[]).map(item => item.msg);
+        });
       }
     });
   }

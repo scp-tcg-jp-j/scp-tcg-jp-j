@@ -4,7 +4,7 @@ import { authenticationService } from './../../models/authentication-service';
 export class StSignup {
   email: string = ""
   username: string = ""
-  error: string = ""
+  errors: string[] = []
 
   created() {
     authenticationService.nowLogin().then(alive => {
@@ -15,7 +15,7 @@ export class StSignup {
   }
 
   submitSignup() {
-    this.error = ""
+    this.errors = [];
 
     const body = JSON.stringify( { email: this.email, username: this.username } )
     const headers = {
@@ -29,10 +29,10 @@ export class StSignup {
         alert("確認用のメールを送信しました。メールボックスをご確認ください。\n※このウィンドウは閉じても問題ありません");
       } else {
         response.json().then(json => {
-          (json.errors as { msg: string }[]).forEach(error => {
-            this.error += error.msg + "\n"
-          })
-        })
+          response.json().then(json => {
+            this.errors = (json.errors as { msg: string }[]).map(item => item.msg);
+          });
+        });
       }
     });
   }
