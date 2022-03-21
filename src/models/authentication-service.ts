@@ -39,7 +39,7 @@ export class AuthenticationService {
     // 別タブでログアウトした場合は検索画面に飛ばす。
     window.addEventListener('storage', function(event){
       if (event.key == 'stjjaic-event-logout') { 
-        location.href = environment.BASE_URL_FRONT + "/search_cards";
+        location.reload();
       }
     });
   }
