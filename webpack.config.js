@@ -145,8 +145,8 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
     // serve index.html for all 404 (required for push-state)
     historyApiFallback: true,
     https: {
-      cert: fs.readFileSync('../frontcert/certs/cert.pem'),
-      key: fs.readFileSync('../frontcert/private/key.pem')
+      cert: fs.readFileSync('../cert/certs/cert.pem'),
+      key: fs.readFileSync('../cert/private/key.pem')
     }
   },
   devtool: production ? 'nosources-source-map' : 'eval-cheap-module-source-map',
