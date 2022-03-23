@@ -6,6 +6,7 @@ export class App {
   public router: Router | null = null;
   public authenticationService = authenticationService
   public logout = authenticationService.logout
+  public saveUrlBeforeLogin = authenticationService.saveUrlBeforeLogin
 
   public configureRouter(config: RouterConfiguration, router: Router) {
     config.title = 'STJJ.AIC';

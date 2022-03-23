@@ -62,9 +62,16 @@ export class AuthenticationService {
       this.checked = true;
       if (json.alive) {
         this.user = json.account;
-          // 必要ならlocalStorage経由で別タブにもログインを通知する（このタブが最初のログインの場合のみ通知が必要）
         if (shouldEmit) {
+          // 別タブにログインを通知する
           localStorage.setItem('stjjaic-event-login', 'login' + Math.random());
+
+          // ログイン前のURLに飛ばす
+          const previousUrl = localStorage.getItem('stjjaic-tmp-url-before-login');
+          if (previousUrl) {
+            localStorage.removeItem('stjjaic-tmp-url-before-login');
+            location.href = previousUrl;
+          }
         }
         return true;
       } else {
@@ -91,6 +98,11 @@ export class AuthenticationService {
       // 検索画面に飛ばす
       location.href = environment.BASE_URL_FRONT + "/search_cards"
     });
+  }
+
+  public saveUrlBeforeLogin() {
+    localStorage.setItem('stjjaic-tmp-url-before-login', location.href);
+    location.href = environment.BASE_URL_FRONT + "#/login";
   }
 }
 

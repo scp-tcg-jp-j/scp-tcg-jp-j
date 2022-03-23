@@ -17,7 +17,7 @@ export class StLogin {
       if (alive) {
         location.href = environment.BASE_URL_FRONT + "/search_cards"
       }
-    })
+    });
   }
 
   submitLogin() {
