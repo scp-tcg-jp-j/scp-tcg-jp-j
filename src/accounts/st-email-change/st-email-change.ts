@@ -4,7 +4,7 @@ export class StEmailChange {
   newEmail: string = "";
 
   created() {
-    authenticationService.nowLogin().then(alive => {
+    authenticationService.syncLoginStatus().then(alive => {
       if (!alive) {
         location.href = environment.BASE_URL_FRONT + "/#/login";
       }

@@ -5,7 +5,7 @@ export class StAccountInfo {
   email: string = "";
 
   created() {
-    authenticationService.nowLogin().then(alive => {
+    authenticationService.syncLoginStatus().then(alive => {
       if (alive) {
         this.username = authenticationService.user?.username!!;
         this.email = authenticationService.user?.email!!;

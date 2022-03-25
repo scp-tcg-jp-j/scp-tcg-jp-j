@@ -6,7 +6,7 @@ export class StPasswordResetNew {
   token: string = "";
 
   created() {
-    authenticationService.nowLogin().then(alive => {
+    authenticationService.syncLoginStatus().then(alive => {
       if (alive) {
         location.href = environment.BASE_URL_FRONT + "/#/search_cards"
       }

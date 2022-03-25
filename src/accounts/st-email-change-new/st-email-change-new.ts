@@ -3,7 +3,7 @@ import { authenticationService } from './../../models/authentication-service';
 export class StEmailChangeNew {
 
   created() {
-    authenticationService.nowLogin().then(alive => {
+    authenticationService.syncLoginStatus().then(alive => {
       if (!alive) {
         location.href = environment.BASE_URL_FRONT + "/#/login";
       }

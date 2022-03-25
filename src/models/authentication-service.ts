@@ -27,12 +27,12 @@ export class AuthenticationService {
 
   constructor() {
     // セッションの死活を取得し、生きているならユーザー情報を持っておく。
-    this.nowLogin(true);
+    this.syncLoginStatus(true);
 
     // 別タブでログインした場合は認証情報を取る。
     window.addEventListener('storage', (event: any) =>{
       if (event.key == 'stjjaic-event-login') { 
-        this.nowLogin();
+        this.syncLoginStatus();
       }
     });
 
@@ -52,7 +52,7 @@ export class AuthenticationService {
   }
 
   // セッションが生きているか
-  public nowLogin(shouldEmit?: boolean) {
+  public syncLoginStatus(shouldEmit?: boolean) {
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'

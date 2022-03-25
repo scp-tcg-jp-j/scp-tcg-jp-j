@@ -7,7 +7,7 @@ export class StAccountDelete {
 
   created() {
     // アクセス時にログアウト状態の場合は検索画面に飛ばす。
-    authenticationService.nowLogin().then(alive => {
+    authenticationService.syncLoginStatus().then(alive => {
       if (!alive) {
         location.href = environment.BASE_URL_FRONT + "/#/search_cards";
       }
