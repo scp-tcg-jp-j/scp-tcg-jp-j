@@ -4,4 +4,4 @@ export const PagerOptions = [
   { key: "20", text: "20件" }, 
   { key: "50", text: "50件" },
   { key: "", text: "全て" },
-]
+];

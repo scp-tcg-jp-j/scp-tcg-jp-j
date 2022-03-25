@@ -8,4 +8,4 @@ export const OcPickerItems = [
   { key: 6, text: "Unclassed", backgroundColor: "#808080", color: "#f3f2f3" },
   { key: 7, text: "Anomalous", backgroundColor: "#2E8B57", color: "#f3f2f3" },
   { key: 8, text: "Explained", backgroundColor: "#C04080", color: "#f3f2f3" },
-]
+];

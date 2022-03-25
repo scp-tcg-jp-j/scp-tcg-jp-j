@@ -6,7 +6,7 @@ export class StUsernameChange {
   created() {
     authenticationService.syncLoginStatus().then(alive => {
       if (!alive) {
-        location.href = environment.BASE_URL_FRONT + "/#/login"
+        location.href = environment.BASE_URL_FRONT + "/#/login";
       }
     });
   }

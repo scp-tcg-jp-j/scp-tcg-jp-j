@@ -7,4 +7,4 @@ export const MaintypePickerItems = [
   { key: 5, text: "Canon", backgroundColor: "#4682b4", color: "#f3f2f3" },
   { key: 6, text: "Hub", backgroundColor: "#C6DFB8", color: "#3f2f2f" },
   { key: 7, text: "契約", backgroundColor: "#000000", color: "#f3f2f3" },
-]
+];

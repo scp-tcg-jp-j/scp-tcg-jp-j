@@ -7,4 +7,4 @@ export const ProjectionPickerItems = [
   { key: 5, text: "コスト", backgroundColor: "#808080", color: "#f3f2f3" },
   { key: 6, text: "効果", backgroundColor: "#808080", color: "#f3f2f3" },
   { key: 7, text: "タグ", backgroundColor: "#808080", color: "#f3f2f3" },
-]
+];

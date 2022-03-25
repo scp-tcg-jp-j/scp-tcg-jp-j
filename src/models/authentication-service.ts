@@ -1,10 +1,11 @@
 import environment from "environment";
 import { User } from "./user";
 import {computedFrom} from 'aurelia-framework';
-export let afterLogin: string = ""
+export let afterLogin: string = "";
 
 export class AuthenticationService {
-  public user: User | null = null
+  public user: User | null = null;
+
   public login(usernameOrEmail: string, password: string) {
     const body = JSON.stringify( { usernameOrEmail: usernameOrEmail, password: password } )
     const headers = {
@@ -48,7 +49,7 @@ export class AuthenticationService {
   // セッションの生死に関わらずログインしたことがあるか
   @computedFrom("user")
   public get hasLogin() {
-    return this.user != null
+    return this.user != null;
   }
 
   // セッションが生きているか
@@ -96,7 +97,7 @@ export class AuthenticationService {
       // localStorage経由で別タブにもログアウトを通知する
       localStorage.setItem('stjjaic-event-logout', 'logout' + Math.random());
       // 検索画面に飛ばす
-      location.href = environment.BASE_URL_FRONT + "/search_cards"
+      location.href = environment.BASE_URL_FRONT + "/search_cards";
     });
   }
 
@@ -106,4 +107,4 @@ export class AuthenticationService {
   }
 }
 
-export const authenticationService = new AuthenticationService()
+export const authenticationService = new AuthenticationService();

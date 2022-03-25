@@ -6,4 +6,4 @@ export const SortOptions = [
   { key: "name_desc", text: "▽カード名(降順)" },
   { key: "attack_desc", text: "▽確保力(降順)" },
   { key: "cost_desc", text: "▽コスト(降順)" },
-]
+];

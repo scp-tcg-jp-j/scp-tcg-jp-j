@@ -13,7 +13,7 @@ export class StPasswordReset {
   }
 
   submitPasswordReset() {
-    const body = JSON.stringify( { email: this.email } )
+    const body = JSON.stringify( { email: this.email } );
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'

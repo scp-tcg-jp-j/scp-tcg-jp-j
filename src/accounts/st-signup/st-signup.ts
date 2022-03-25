@@ -2,14 +2,14 @@ import environment from 'environment';
 import { authenticationService } from './../../models/authentication-service';
 
 export class StSignup {
-  email: string = ""
-  username: string = ""
-  errors: string[] = []
+  email: string = "";
+  username: string = "";
+  errors: string[] = [];
 
   created() {
     authenticationService.syncLoginStatus().then(alive => {
       if (alive) {
-        location.href = environment.BASE_URL_FRONT + "/#/search_cards"
+        location.href = environment.BASE_URL_FRONT + "/#/search_cards";
       }
     });
   }
@@ -17,7 +17,7 @@ export class StSignup {
   submitSignup() {
     this.errors = [];
 
-    const body = JSON.stringify( { email: this.email, username: this.username } )
+    const body = JSON.stringify( { email: this.email, username: this.username } );
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'

@@ -8,9 +8,9 @@ import { PickerItem } from './picker-item';
 @autoinject
 export class StPicker {
   // 選択肢
-  @bindable selections: PickerItem[] = []
+  @bindable selections: PickerItem[] = [];
   // 選択されたアイテム
-  @bindable selectedItems: PickerItem[] = []
+  @bindable selectedItems: PickerItem[] = [];
 
   constructor(private element: Element, private taskQueue: TaskQueue) {
 
@@ -55,13 +55,11 @@ export class StPicker {
     ): PickerItem[] | Promise<PickerItem[]> 
   {
     // 何かタイプされてた場合
-    if (filterText) 
-    {
-      return this.removeDuplicates(this.filterByText(filterText), currentItems)
+    if (filterText) {
+      return this.removeDuplicates(this.filterByText(filterText), currentItems);
     } 
-    else 
-    {
-      return []
+    else {
+      return [];
     }
   }
 
@@ -75,13 +73,13 @@ export class StPicker {
 
   inputProps = {
     placeholder: '（ここに入力）'
-  }
+  };
 
   // OK
   // checked
   private _onEmptyInputFocus(currentItems: PickerItem[]): PickerItem[] | Promise<PickerItem[]>
   {
-    return this.removeDuplicates(this.selections, currentItems)
+    return this.removeDuplicates(this.selections, currentItems);
   }
 
 
@@ -95,7 +93,7 @@ export class StPicker {
     // ダブりを除いたリストを取得
     private removeDuplicates(baseList: PickerItem[], removeList: PickerItem[]) 
     {
-      return baseList.filter(item => !removeList.some(removeItem => item.key == removeItem.key))      
+      return baseList.filter(item => !removeList.some(removeItem => item.key == removeItem.key));
     }
 
     // 手入力の場合のバリデーション

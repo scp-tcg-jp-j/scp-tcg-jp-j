@@ -8,13 +8,13 @@ export class StPasswordResetNew {
   created() {
     authenticationService.syncLoginStatus().then(alive => {
       if (alive) {
-        location.href = environment.BASE_URL_FRONT + "/#/search_cards"
+        location.href = environment.BASE_URL_FRONT + "/#/search_cards";
       }
     });
   }
 
   activate(params: any) {
-    this.token = params.token
+    this.token = params.token;
   }
 
   submitPasswordReset() {

@@ -2,7 +2,6 @@ import { authenticationService } from './../../models/authentication-service';
 import environment from "environment";
 import { User } from "models/user";
 import {computedFrom} from 'aurelia-framework';
-import {IDropdownOption} from '@fluentui/react/lib/Dropdown';
 
 export class StUserManager {
   
@@ -62,10 +61,6 @@ export class StUserManager {
     this.currentPage = this.lastPage;
   }
 
-  /* du-dropdownが動かないので保留
-  roleEdit(event: any, option?: IDropdownOption, index?: number) {
-    this.users[1].role="administrator"
-  }*/
   roleChanges: { role: string, targetId: string }[] = [];
   roleEdit(newValue: string, targetId: string) {
 

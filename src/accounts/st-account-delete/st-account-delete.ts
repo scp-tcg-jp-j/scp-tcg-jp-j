@@ -15,7 +15,7 @@ export class StAccountDelete {
   }
 
   submitAccountDelete() {
-    const body = JSON.stringify( { password: this.password } )
+    const body = JSON.stringify( { password: this.password } );
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ export class StAccountDelete {
     .then((response) => {
       if (response.ok) {
         alert("アカウントを削除しました。ご愛顧いただきありがとうございました。");
-        location.href = environment.BASE_URL_FRONT
+        location.href = environment.BASE_URL_FRONT;
       } else {
         alert("アカウント削除に失敗しました。必要に応じてもう一度操作してください");
       }

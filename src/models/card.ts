@@ -1,12 +1,12 @@
 // STJJのメインタイプ
-const mainTypes = ['オブジェクト', '人事', 'Tale', 'Incident', 'Canon', 'Hub'] as const
-export type MainType = typeof mainTypes[number]
+const mainTypes = ['オブジェクト', '人事', 'Tale', 'Incident', 'Canon', 'Hub'] as const;
+export type MainType = typeof mainTypes[number];
 // STJJのルールで定義されたサブタイプ（使わないかも）
-const ruleDefinedSubTypes = ['【効果】', '【コンビ】', '【フィールド】', '【トークン】', '【契約】'] as const
-export type RuleDefinedSubType = typeof ruleDefinedSubTypes[number]
+const ruleDefinedSubTypes = ['【効果】', '【コンビ】', '【フィールド】', '【トークン】', '【契約】'] as const;
+export type RuleDefinedSubType = typeof ruleDefinedSubTypes[number];
 // STJJのOC
-const objectClasses = ['Safe', 'Euclid', 'Keter', 'Thaumiel', 'Neutralized', 'Unclassed', 'Anomalous', 'Explained'] as const
-export type ObjectClass = typeof objectClasses[number]
+const objectClasses = ['Safe', 'Euclid', 'Keter', 'Thaumiel', 'Neutralized', 'Unclassed', 'Anomalous', 'Explained'] as const;
+export type ObjectClass = typeof objectClasses[number];
 
 // カード
 export interface Card {

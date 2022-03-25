@@ -11,7 +11,7 @@ export class StEmailChangeNew {
   }
 
   activate(params: any) {
-    const body = JSON.stringify( { token: params.token } )
+    const body = JSON.stringify( { token: params.token } );
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ export class StEmailChangeNew {
     .then((response) => {
       if (response.ok) {
         alert("メールアドレスを変更しました");
-        location.href = environment.BASE_URL_FRONT + "/#/email-change"
+        location.href = environment.BASE_URL_FRONT + "/#/email-change";
       } else {
         alert("変更に失敗しました。必要に応じてもう一度操作してください");
       }

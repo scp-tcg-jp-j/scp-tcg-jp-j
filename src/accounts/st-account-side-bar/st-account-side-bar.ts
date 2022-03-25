@@ -6,18 +6,18 @@ export class StAccountSideBar {
   constructor(private router: Router) {}
 
   goAccountInfo() {
-    this.router.navigateToRoute('account-info')    
+    this.router.navigateToRoute('account-info');
   }
   goEmailChange() {
-    this.router.navigateToRoute('email-change')    
+    this.router.navigateToRoute('email-change');
   }
   goUsernameChange() {
-    this.router.navigateToRoute('username-change')    
+    this.router.navigateToRoute('username-change');
   }
   goPasswordChange() {
-    this.router.navigateToRoute('password-change')    
+    this.router.navigateToRoute('password-change');
   }
   goAccountDelete() {
-    this.router.navigateToRoute('account-delete')    
+    this.router.navigateToRoute('account-delete');
   }
 }

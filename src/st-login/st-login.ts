@@ -8,14 +8,14 @@ import {Router} from 'aurelia-router';
 @inject(Router)
 export class StLogin {
   constructor(private router: Router) {}
-  usernameOrEmail: string = ""
-  password: string = ""
-  hasFailed: boolean = false
+  usernameOrEmail: string = "";
+  password: string = "";
+  hasFailed: boolean = false;
 
   created() {
     authenticationService.syncLoginStatus().then(alive => {
       if (alive) {
-        location.href = environment.BASE_URL_FRONT + "/search_cards"
+        location.href = environment.BASE_URL_FRONT + "/search_cards";
       }
     });
   }
@@ -25,9 +25,9 @@ export class StLogin {
     .then(isOk => {
       if (isOk) {
         if (afterLogin) {
-          location.href = afterLogin
+          location.href = afterLogin;
         } else {
-          location.href = environment.BASE_URL_FRONT + "/search_cards"
+          location.href = environment.BASE_URL_FRONT + "/search_cards";
         }
       } else {
         this.hasFailed = true;

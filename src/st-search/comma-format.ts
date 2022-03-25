@@ -1,8 +1,8 @@
 export class CommaFormatValueConverter {
   toView(array: string[]) {
     if ((array || []).length == 0) {
-      return '（なし）'
+      return '（なし）';
     }
-    return array.reduce((acc, cur) => acc + ',' + cur)
+    return array.reduce((acc, cur) => acc + ',' + cur);
   }
 }
