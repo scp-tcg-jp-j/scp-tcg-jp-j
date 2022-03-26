@@ -1,12 +1,16 @@
 import environment from 'environment';
 import { authenticationService } from './../../models/authentication-service';
 
+// アカウント作成画面
 export class StSignup {
-  email: string = "";
-  username: string = "";
-  errors: string[] = [];
 
+  email:    string = "";   // メールアドレス（viewにバインド）
+  username: string = "";   // ユーザー名（viewにバインド）
+  errors:   string[] = []; // 入力エラー（viewにバインド）
+
+  // コンポーネント生成時処理（Aureliaのライフサイクル）
   created() {
+    // アクセス時に既にログインしている場合は検索画面に飛ばす
     authenticationService.syncLoginStatus().then(alive => {
       if (alive) {
         location.href = environment.BASE_URL_FRONT + "/#/search_cards";
@@ -14,6 +18,7 @@ export class StSignup {
     });
   }
 
+  //
   submitSignup() {
     this.errors = [];
 
