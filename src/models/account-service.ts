@@ -2,7 +2,7 @@ import environment from "environment";
 
 export class AccountService {
   public emailChange(email: string) {
-    // todo: メール飛ばして確認するフロー
+
     const body = JSON.stringify( { email: email } );
     const headers = {
       'Accept': 'application/json',

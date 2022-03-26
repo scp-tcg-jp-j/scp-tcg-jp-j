@@ -85,7 +85,7 @@ export class StSearch {
   get lastPage() {
     return Math.floor((this.count - (this.count % this.currentQuery.pageSize ? 1 : 0)) / this.currentQuery.pageSize);
   }
-  // todo DRY
+
   submitPageFirst() {
     this.currentQuery.page = 0;
     const body = JSON.stringify(this.currentQuery);

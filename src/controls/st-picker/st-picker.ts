@@ -1,10 +1,7 @@
 import { bindable, autoinject, TaskQueue } from 'aurelia-framework';
-// ここから
 import { IBasePickerSuggestionsProps, ValidationState } from '@fluentui/react/lib/Pickers';
 import { PickerItem } from './picker-item';
-// ここまで
 
-// todo: メソッド名が適切か見直す
 @autoinject
 export class StPicker {
   // 選択肢
