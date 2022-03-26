@@ -1,9 +1,14 @@
 import environment from 'environment';
 import { authenticationService } from './../../models/authentication-service';
-export class StEmailChange {
-  newEmail: string = "";
 
+// メールアドレス変更画面
+export class StEmailChange {
+
+  newEmail: string = ""; // 新しいメールアドレス（viewとバインド）
+
+  // コンポーネント生成時処理（Aureliaのライフサイクル）
   created() {
+    // アクセス時にログアウト状態の場合はログイン画面に飛ばす
     authenticationService.syncLoginStatus().then(alive => {
       if (!alive) {
         location.href = environment.BASE_URL_FRONT + "/#/login";
@@ -11,18 +16,24 @@ export class StEmailChange {
     });
   }
 
+  // 「確認用メールの送信」ボタン押下時処理（viewとバインド）
+  // todo: リファクタリング。通信部分はサービスに切り出すべき
   save() {
+    // APIへのリクエストボディ
     const body = JSON.stringify( { email: this.newEmail } );
+    // APIへのリクエストヘッダ
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     };
-
+    // APIへのリクエスト
     fetch(environment.BASE_URL + "/email_change", { method: 'POST', headers: headers, body: body, mode: 'cors', credentials: "include" })
     .then((response) => {
       if (response.ok) {
+        // 成功時処理
         alert("確認用のメールを送信しました。メールボックスをご確認ください");
       } else {
+        // 失敗時処理
         alert("メールアドレスの更新に失敗しました。必要に応じてもう一度操作してください");
       }
       location.reload();

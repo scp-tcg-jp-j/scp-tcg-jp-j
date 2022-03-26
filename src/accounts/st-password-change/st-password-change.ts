@@ -1,8 +1,11 @@
 import environment from 'environment';
 import { authenticationService } from './../../models/authentication-service';
+
+// パスワード変更画面
 export class StPasswordChange {
-  currentPassword: string = "";
-  newPassword: string = "";
+
+  currentPassword: string = ""; // 変更前のパスワード（viewとバインド）
+  newPassword:     string = ""; // 変更後のパスワード（viewとバインド）
 
   created() {
     authenticationService.syncLoginStatus().then(alive => {
