@@ -3,11 +3,12 @@ import environment from "environment";
 import { User } from "models/user";
 import {computedFrom} from 'aurelia-framework';
 
+// ユーザー管理画面
 export class StUserManager {
   
-  public users: User[] = [];
-  currentPage: number = 0;
-  authenticationService = authenticationService;
+  public users: User[]  = [];                    // 全ユーザーのデータ（viewとバインド）
+  currentPage: number   = 0;                     // 現在何ページ目を見ているか（viewとバインド）
+  authenticationService = authenticationService; // 認証サービス
 
   // todo: 選択肢は別クラスに置く
   roleOptions = [
@@ -15,20 +16,22 @@ export class StUserManager {
     { key: 'administrator', text: '管理者' }
   ];
 
-  // 現在見ているページのユーザーn件
-
+  // コンポーネント生成時処理（Aureliaのライフサイクル）
   created() {
+    // APIへのリクエストヘッダ
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     };
-
+    // APIへのリクエスト
+    // todo: リファクタリング。通信部分はサービスに切り出すべき
     fetch(environment.BASE_URL + "/admin/users", { method: 'POST', headers: headers, mode: 'cors', credentials: "include" })
     .then(response => response.json())
     .then(json => { 
+      // 成功時処理
       this.users = json.users;
     })
-    .catch(reason => console.error(JSON.stringify(reason)));
+    .catch(reason => console.error(JSON.stringify(reason))); // 失敗時処理
   }
 
   @computedFrom("currentPage", "users")

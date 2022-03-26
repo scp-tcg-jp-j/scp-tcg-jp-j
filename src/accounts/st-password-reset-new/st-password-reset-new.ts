@@ -11,7 +11,7 @@ export class StPasswordResetNew {
   created() {
     // アクセス時にログアウト状態の場合はログイン画面に飛ばす
     authenticationService.syncLoginStatus().then(alive => {
-      if (alive) {
+      if (!alive) {
         location.href = environment.BASE_URL_FRONT + "/#/login";
       }
     });
