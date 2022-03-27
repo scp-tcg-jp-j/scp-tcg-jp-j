@@ -1,4 +1,6 @@
 import { IPersonaProps } from '@fluentui/react/lib/Persona';
+
+// Pickerの選択肢クラス
 export class PickerItem implements IPersonaProps {
   constructor(
     public key: string | number,
