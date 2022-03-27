@@ -34,39 +34,55 @@ export class StUserManager {
     .catch(reason => console.error(JSON.stringify(reason))); // 失敗時処理
   }
 
+  // 現在表示中のユーザーのIDリスト（viewとバインド）
   @computedFrom("currentPage", "users")
   get currentPageItemsId() {
     return this.users.slice(this.currentPage * 10, this.currentPage * 10 + 10).map(item => item._id);
   }
 
+  // 現在表示中のユーザーリストは最初のページか（viewとバインド）
   @computedFrom("currentPage", "users")
   get isFirstPage() {
     return this.currentPage == 0;
   }
+
+  // 現在表示中のユーザーリストは最後のページか（viewとバインド）
   @computedFrom("currentPage", "users")
   get isLastPage() {
     return (this.currentPage + 1) * 10 > this.users.length;
   }
+
+  // ユーザーリストの最後のページ番号（viewとバインド）
   @computedFrom("users")
   get lastPage() {
     return Math.floor(this.users.length / 10);
   }
+
+  // ユーザーリストの最初のページに飛ぶ（viewとバインド）
   goFirst() {
     this.currentPage = 0;
   }
+
+  // ユーザーリストの1つ前のページに飛ぶ（viewとバインド）
   goBack() {
     this.currentPage--;
   }
+
+  // ユーザーリストの1つ次のページに飛ぶ（viewとバインド）
   goNext() {
     this.currentPage++;
   }
+
+  // ユーザーリストの最後のページに飛ぶ（viewとバインド）
   goLast() {
     this.currentPage = this.lastPage;
   }
 
+  // ロール編集を一時的に保持
   roleChanges: { role: string, targetId: string }[] = [];
-  roleEdit(newValue: string, targetId: string) {
 
+  // ロール編集（viewとバインド）
+  roleEdit(newValue: string, targetId: string) {
     if (this.roleChanges.some(roleChange => roleChange.targetId == targetId)) {
       this.roleChanges = this.roleChanges.filter(roleChange => roleChange.targetId != targetId);
     } else {
@@ -74,9 +90,11 @@ export class StUserManager {
     }
   }
 
+  // BAN編集を一時的に保持
   banChanges: { banned: boolean, targetId: string }[] = [];
-  banEdit(newValue: boolean, targetId: string) {
-  
+
+  // BAN編集（viewとバインド）
+  banEdit(newValue: boolean, targetId: string) {  
     (this.users.find(user => user._id == targetId) as any).banned = newValue;
     if (this.banChanges.some(banChange => banChange.targetId == targetId)) {
       this.banChanges = this.banChanges.filter(banChange => banChange.targetId != targetId);
@@ -85,8 +103,10 @@ export class StUserManager {
     }
   }
 
+  // 保存（viewとバインド）
   save() {
     let message = "以下のユーザーへの変更を保存しますか？\n";
+
     this.roleChanges.forEach(roleChange => {
       const username = this.users.find(user => user._id == roleChange.targetId)!!.username;
       // todo: 権限が増えたらちゃんとやる
@@ -110,15 +130,14 @@ export class StUserManager {
       message += "\n";
     });
 
-
     const doChange = confirm(message);
     if (doChange) {
       const body = JSON.stringify( { changes: ([] as any[]).concat(this.roleChanges).concat(this.banChanges) } );
       const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-      };
-  
+      };  
+      // todo: リファクタリング。通信部分はサービスに切り出すべき
       fetch(environment.BASE_URL + "/admin/edit_users", { method: 'POST', headers: headers, body: body, mode: 'cors', credentials: "include" })
       .then((response) => {
         if (response.ok) {
@@ -130,4 +149,5 @@ export class StUserManager {
       });
     }
   }
+
 }
