@@ -7,6 +7,13 @@
         <div class="col-md-1"></div>
         <div class="col-md-5"><input type="text" value.bind="newEmail" class="input-text" placeholder="新しいメールアドレス"></div>
       </div>
+      <div class="row" repeat.for="error of errors">
+        <div class="col-md-12">
+          <div class="login-control">
+            ${ error }
+          </div>
+        </div>
+      </div>
       <div class="row" style="margin-top: 20px;">
         <div class="col-md-1"></div>
         <div class="col-md-5">

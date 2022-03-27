@@ -5,6 +5,7 @@ import { authenticationService } from './../../models/authentication-service';
 export class StEmailChange {
 
   newEmail: string = ""; // 新しいメールアドレス（viewとバインド）
+  errors:   string[] = []; // 入力エラー（viewにバインド）
 
   // コンポーネント生成時処理（Aureliaのライフサイクル）
   created() {
@@ -32,11 +33,13 @@ export class StEmailChange {
       if (response.ok) {
         // 成功時処理
         alert("確認用のメールを送信しました。メールボックスをご確認ください");
+        location.reload();
       } else {
         // 失敗時処理
-        alert("メールアドレスの更新に失敗しました。必要に応じてもう一度操作してください");
+        response.json().then(json => {
+          this.errors = (json.errors as { msg: string }[]).map(item => item.msg);
+        });
       }
-      location.reload();
     });
   }
 }
