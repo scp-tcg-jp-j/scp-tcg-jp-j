@@ -18,11 +18,9 @@ export class AuthenticationService {
     .then((json) => {
       if (json.result == "ok") {
         this.user = json.account;
-        return true;
-      } else {
-        this.user = null;
-        return false;
+        return json;
       }
+      throw json.errors as string[];
     });
   }
 

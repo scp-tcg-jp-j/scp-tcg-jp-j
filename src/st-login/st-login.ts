@@ -8,9 +8,9 @@ import {Router} from 'aurelia-router';
 @inject(Router)
 export class StLogin {
   constructor(private router: Router) {}
-  usernameOrEmail: string = "";
-  password: string = "";
-  hasFailed: boolean = false;
+  usernameOrEmail: string   = "";
+  password:        string   = "";
+  errors:          string[] = [];
 
   created() {
     authenticationService.syncLoginStatus().then(alive => {
@@ -22,17 +22,15 @@ export class StLogin {
 
   submitLogin() {
     authenticationService.login(this.usernameOrEmail, this.password)
-    .then(isOk => {
-      if (isOk) {
-        if (afterLogin) {
-          location.href = afterLogin;
-        } else {
-          location.href = environment.BASE_URL_FRONT + "/search_cards";
-        }
+    .then(json => {
+      if (afterLogin) {
+        location.href = afterLogin;
       } else {
-        this.hasFailed = true;
+        location.href = environment.BASE_URL_FRONT + "/search_cards";
       }
-    })
+    }).catch((reason) => {
+      this.errors = reason as string[];
+    });
   }
 
   goSignup() {
