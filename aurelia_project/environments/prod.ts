@@ -1,5 +1,5 @@
 export default {
   debug: false,
   testing: false,
-  BASE_URL: "https://api.scptcgjpj.",
+  BASE_URL: "https://api.scptcgjpj.net",
 };
